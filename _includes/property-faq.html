@@ -1,0 +1,73 @@
+<section id="hc-property-faq" class="container">
+
+		<div class="col-sm-offset-6 col-sm-6 col-md-offset-8 col-md-4">
+			<form id="property-faq-form" class="alert alert-info" data-toggle="tooltip" data-placement="bottom" data-container="#hc-property-faq" title="{{ page.btn_tooltip }}">
+
+				<div class="input-group" >
+					<input type="text" name="address" class="form-control input-sm" placeholder="Your Address..." required autocomplete="off">
+					<span class="input-group-btn">
+						<button class="btn btn-info btn-sm" type="submit" >
+							Get Info!
+							<!-- <span class="glyphicon glyphicon-home" aria-hidden="true"></span> -->
+						</button>
+					</span>
+				</div>
+
+				<p class="visible-xs-block h6 small">
+					{{ page.btn_tooltip }}
+				</p>
+
+			</form>
+		</div>
+
+</section>
+
+<aside class="">
+
+	<!-- Modal -->
+	<div class="modal fade" id="property-faq-Modal" tabindex="-1" role="dialog" aria-labelledby="property-faq-ModalLabel">
+		<div class="modal-dialog modal-md" role="document">
+			<div class="modal-content">
+
+				<header class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="property-faq-ModalLabel">Address...</h4>
+				</header>
+
+				<aside id="property-faq-alerts">
+
+				</aside>
+
+				<figure id="property-faq-map-container">
+					<div class="embed-responsive embed-responsive-16by9">
+						<div id="property-faq-map" class="embed-responsive-item"></div>
+					</div>
+				</figure>
+
+				<section class="modal-body">
+					<form class="" action="index.html" method="post">
+						<p class="help-block small">
+							{{ content }}
+						</p>
+						<select id="property-faq-questions" class="form-control input-lg">
+							<option disabled selected>I want to know...</option>
+							<option>What are my trash pickup days?</option>
+							<option>What is my evacuation zone?</option>
+							<option>Am I in the 140 MPH wind borne debris area?</option>
+							<option>What is my flood zone?</option>
+						</select>
+					</form>
+				</section>
+
+				<section class="modal-body" id="property-faq-results"></section>
+
+				<footer class="modal-footer">
+
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</footer>
+
+			</div>
+		</div>
+	</div>
+
+</aside>

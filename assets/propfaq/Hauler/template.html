@@ -1,0 +1,91 @@
+<!-- <#% console.log(model) %> -->
+<% if (_.isUndefined(model.provider)) { return false; } %>
+
+<section class="panel panel-default">
+	<header class="panel-heading">
+		<strong>Searched Address:</strong>
+		<%= model.search_str %>
+	</header>
+	<div class="table-responsive">
+		<table class="table table-striped table-bordered">
+			<tbody>
+				<tr>
+					<td>
+						<strong>Trash Days</strong><br>
+						<span class="small">
+							Next Pickups
+						</span>
+					</td>
+					<td>
+						<strong>
+							<%= model.g_days %>
+						</strong>
+						<ul class="small list-unstyled">
+							<% _.each(model.next_g_days, function(day){
+								%>
+								<li>
+									<%= day %>
+								</li>
+								<%
+							}) %>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<strong>Recycling Day</strong><br>
+						<span class="small">
+							Next Pickup
+						</span>
+					</td>
+					<td>
+						<strong>
+							<%= model.r_days %>
+						</strong>
+						<ul class="small list-unstyled">
+							<% _.each(model.next_r_days, function(day){
+								%>
+								<li>
+									<%= day %>
+								</li>
+								<%
+							}) %>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<strong>Yard Waste Day</strong><br>
+						<span class="small">
+							Next Pickup
+						</span>
+					</td>
+					<td>
+						<strong>
+							<%= model.yw_days %>
+						</strong>
+						<ul class="small list-unstyled">
+							<% _.each(model.next_yw_days, function(day){
+								%>
+								<li>
+									<%= day %>
+								</li>
+								<%
+							}) %>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<th>Provider</th>
+					<td>
+						<strong><%= model.provider.attributes.name %></strong><br>
+						<%= model.provider.attributes.address %><br>
+						<i class="fa fa-fw fa-phone"></i> <%= model.provider.attributes.phone %><br>
+						<i class="fa fa-fw fa-fax"></i> <%= model.provider.attributes.fax %><br>
+						<i class="fa fa-fw fa-envelope"></i> <a href="mailto:<%= model.provider.attributes.email %>"><%= model.provider.attributes.email %></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</section>

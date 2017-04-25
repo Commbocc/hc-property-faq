@@ -1,0 +1,49 @@
+#mapDiv {
+	background: #79ccd2;
+}
+
+#hc-property-faq {
+
+	& > div {
+		padding: 0;
+	}
+
+	@media (max-width: 767px) {
+		padding: 0;
+	}
+
+	@media (min-width: 768px) {
+		height: 0;
+		overflow: visible;
+	}
+
+	#property-faq-form {
+		@media (max-width: 767px) {
+			border-radius: 0;
+		}
+		@media (min-width: 768px) {
+			padding: 7px;
+		}
+		border-top-right-radius: 0;
+		border-top-left-radius: 0;
+		margin: 0;
+	}
+
+}
+
+#property-faq-Modal {
+
+	.alert {
+		border-radius: 0;
+		margin: 0;
+	}
+
+	.modal-header {
+		background: #79ccd2;
+		background: -moz-linear-gradient(-45deg, #79ccd2 0%, #79ccd2 50%, #8cd3d7 51%, #8cd3d7 100%);
+		background: -webkit-linear-gradient(-45deg, #79ccd2 0%, #79ccd2 50%, #8cd3d7 51%, #8cd3d7 100%);
+		background: linear-gradient(135deg, #79ccd2 0%, #79ccd2 50%, #8cd3d7 51%, #8cd3d7 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#79ccd2', endColorstr='#8cd3d7',GradientType=1 );
+	}
+
+}
