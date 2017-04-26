@@ -1,13 +1,13 @@
 define([
-	"esri/config",
 	"esri/tasks/Locator",
 	"esri/tasks/QueryTask",
 	"esri/tasks/support/Query"
-], function(esriConfig, Locator, QueryTask, Query) {
+], function(Locator, QueryTask, Query) {
 
 	PropFAQ.Models.SearchModel = Backbone.Model.extend({
 
 		defaults: {
+			search_str: null,
 			candidate: null,
 			folio: null,
 			last_searched: new Date
@@ -44,7 +44,7 @@ define([
 			var query = new Query();
 			query.returnGeometry = true;
 			query.outFields = [parcel_field];
-			query.geometry = this.attributes.candidate.location;
+			query.geometry = this.get('candidate').location;
 
 			queryTask.execute(query).then(function(results){
 				if (_.isUndefined(results.features[0])) {
@@ -65,8 +65,9 @@ define([
 			'submit': 'submit'
 		},
 
+		model: new PropFAQ.Models.SearchModel,
+
 		initialize: function() {
-			this.model = new PropFAQ.Models.SearchModel;
 			// this.listenTo(this.model, 'change:search_str', this.initLoading);
 		},
 

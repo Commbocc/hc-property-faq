@@ -1,5 +1,4 @@
-define([
-], function() {
+$(function() {
 
 	window.PropFAQ = {
 		Models: {},
@@ -8,17 +7,37 @@ define([
 		Views: {}
 	};
 
-	PropFAQ.dataDir = PropFAQ.dataDir || '/hc-property-faq/assets/propfaq';
-
 	PropFAQ.Routers.MainRouter = Backbone.Router.extend({
 		routes: {
 			":id": "individual",
 			"*actions": "all"
 		},
 
+		initialize: function(options) {
+			PropFAQ.dataDir = PropFAQ.dataDir || options.dir_path;
+		},
+
 		all: function() {
 			// all Property FAQ services
 			console.log('all');
+
+			require([
+				"esri/tasks/Locator",
+			], function(Locator) {
+
+				var hcLocator = new Locator({
+					url: "https://maps.hillsboroughcounty.org/arcgis/rest/services/Geocoding/DBO_composite_address_locator/GeocodeServer"
+				});
+
+				hcLocator.addressToLocations({
+					address: { SingleLine: '805 sandcastle' },
+					maxLocations: 1
+				}).then(function(response) {
+					console.log(response)
+				});
+
+			});
+
 		},
 
 		individual: function(id) {
@@ -43,7 +62,5 @@ define([
 		}
 
 	});
-
-	return PropFAQ.Routers.MainRouter;
 
 });
