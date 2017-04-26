@@ -1,4 +1,6 @@
-$(function() {
+define([
+	"dojo/domReady!"
+], function() {
 
 	window.PropFAQ = {
 		Models: {},
@@ -7,9 +9,9 @@ $(function() {
 		Views: {}
 	};
 
-	PropFAQ.dataDir = PropFAQ.dataDir || '/hc-property-faq-test/assets/propfaq';
+	PropFAQ.dataDir = PropFAQ.dataDir || '/hc-property-faq/assets/propfaq';
 
-	PropFAQ.Router = Backbone.Router.extend({
+	PropFAQ.Routers.MainRouter = Backbone.Router.extend({
 		routes: {
 			":id": "individual",
 			"*actions": "all"
@@ -28,8 +30,7 @@ $(function() {
 				PropFAQ.dataDir+"/"+id+"/init.js",
 				PropFAQ.dataDir+"/search.js",
 				PropFAQ.dataDir+"/results.js",
-				PropFAQ.dataDir+"/errors.js",
-				"dojo/domReady!"
+				PropFAQ.dataDir+"/errors.js"
 			], function(IndividualPropFaqModel) {
 				var propfaq_search_view = new PropFAQ.Views.SearchView;
 
@@ -38,11 +39,12 @@ $(function() {
 					model.set('search_str', that.get('candidate').address);
 					var propfaq_results_view = new PropFAQ.Models.ResultsView({model: model});
 				});
-
 			});
 
 		}
 
 	});
+
+	return PropFAQ.Routers.MainRouter;
 
 });
