@@ -1,5 +1,4 @@
 define([
-	"dojo/domReady!"
 ], function() {
 
 	window.PropFAQ = {

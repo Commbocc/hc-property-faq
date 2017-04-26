@@ -37,12 +37,13 @@ permalink: /hauler/
 <script src="https://js.arcgis.com/4.3/"></script>
 
 <script type="text/javascript">
-$(function() {
+// $(function() {
 
 	var propFaqDir = '/hc-property-faq/assets/propfaq';
 
 	require([
-		propFaqDir+"/init.js"
+		propFaqDir+"/init.js",
+		"dojo/domReady!"
 	], function(MainRouter) {
 		PropFAQ.dataDir = propFaqDir;
 
@@ -51,5 +52,5 @@ $(function() {
 		router.navigate('Hauler', {trigger: true, replace: true});
 	});
 
-});
+// });
 </script>
