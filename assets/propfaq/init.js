@@ -10,9 +10,9 @@ $(function() {
 	PropFAQ.dataDir = window.propfaq_dir_path || '/hc-property-faq/assets/propfaq';
 
 	define([
-		PropFAQ.dataDir+"/search.js",
-		PropFAQ.dataDir+"/results.js",
-		PropFAQ.dataDir+"/errors.js"
+		// PropFAQ.dataDir+"/search.js",
+		// PropFAQ.dataDir+"/results.js",
+		// PropFAQ.dataDir+"/errors.js"
 	], function() {
 
 
@@ -49,7 +49,9 @@ $(function() {
 					var queryTask = new QueryTask({
 						url: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/InfoLayers/HC_Parcels/MapServer/0'
 					});
+
 					var query = new Query();
+
 					query.returnGeometry = true;
 					query.outFields = ['FOLIO'];
 
