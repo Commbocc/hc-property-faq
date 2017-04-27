@@ -28,7 +28,7 @@ $(function() {
 
 			all: function() {
 				// all Property FAQ services
-				console.log('all 2:44');
+				console.log('all 2:48');
 
 				// var propfaq_search_view = new PropFAQ.Views.SearchView;
 				//
@@ -46,14 +46,14 @@ $(function() {
 						url: "https://maps.hillsboroughcounty.org/arcgis/rest/services/Geocoding/DBO_composite_address_locator/GeocodeServer"
 					});
 
-					// var queryTask = new QueryTask({
-					// 	url: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/InfoLayers/HC_Parcels/MapServer/0'
-					// });
+					var queryTask = new QueryTask({
+						url: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/InfoLayers/HC_Parcels/MapServer/0'
+					});
 
-					var query = new Query();
+					// var query = new Query();
 
-					query.returnGeometry = true;
-					query.outFields = ['FOLIO'];
+					// query.returnGeometry = true;
+					// query.outFields = ['FOLIO'];
 
 					hcLocator.addressToLocations({
 						address: { SingleLine: '805 sandcastle' },
@@ -61,7 +61,7 @@ $(function() {
 					}).then(function(response) {
 						console.log(response);
 
-						query.geometry = response[0].location;
+						// query.geometry = response[0].location;
 
 						// queryTask.execute(query).then(function(results){
 						// 	console.log(results);
