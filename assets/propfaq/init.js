@@ -37,21 +37,21 @@ $(function() {
 				// });
 
 				require([
-					"esri/tasks/Locator"
-					// "esri/tasks/QueryTask",
-					// "esri/tasks/support/Query"
+					"esri/tasks/Locator",
+					"esri/tasks/QueryTask",
+					"esri/tasks/support/Query"
 				], function(Locator, QueryTask, Query) {
 
 					var hcLocator = new Locator({
 						url: "https://maps.hillsboroughcounty.org/arcgis/rest/services/Geocoding/DBO_composite_address_locator/GeocodeServer"
 					});
 
-					// var queryTask = new QueryTask({
-					// 	url: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/InfoLayers/HC_Parcels/MapServer/0'
-					// });
-					//
-					// var query = new Query();
-					//
+					var queryTask = new QueryTask({
+						url: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/InfoLayers/HC_Parcels/MapServer/0'
+					});
+
+					var query = new Query();
+					
 					// query.returnGeometry = true;
 					// query.outFields = ['FOLIO'];
 
