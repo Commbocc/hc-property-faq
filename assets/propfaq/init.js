@@ -28,7 +28,7 @@ $(function() {
 
 			all: function() {
 				// all Property FAQ services
-				console.log('all');
+				console.log('all 1');
 
 				// var propfaq_search_view = new PropFAQ.Views.SearchView;
 				//
@@ -51,9 +51,9 @@ $(function() {
 					});
 
 					var query = new Query();
-					
-					// query.returnGeometry = true;
-					// query.outFields = ['FOLIO'];
+
+					query.returnGeometry = true;
+					query.outFields = ['FOLIO'];
 
 					hcLocator.addressToLocations({
 						address: { SingleLine: '805 sandcastle' },
@@ -61,8 +61,8 @@ $(function() {
 					}).then(function(response) {
 						console.log(response);
 
-						// query.geometry = response[0].location;
-						//
+						query.geometry = response[0].location;
+
 						// queryTask.execute(query).then(function(results){
 						// 	console.log(results);
 						// });
