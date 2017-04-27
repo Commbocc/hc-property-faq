@@ -28,7 +28,7 @@ $(function() {
 
 			all: function() {
 				// all Property FAQ services
-				console.log('all 1');
+				console.log('all 2:44');
 
 				// var propfaq_search_view = new PropFAQ.Views.SearchView;
 				//
@@ -46,9 +46,9 @@ $(function() {
 						url: "https://maps.hillsboroughcounty.org/arcgis/rest/services/Geocoding/DBO_composite_address_locator/GeocodeServer"
 					});
 
-					var queryTask = new QueryTask({
-						url: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/InfoLayers/HC_Parcels/MapServer/0'
-					});
+					// var queryTask = new QueryTask({
+					// 	url: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/InfoLayers/HC_Parcels/MapServer/0'
+					// });
 
 					var query = new Query();
 
