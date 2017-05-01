@@ -28,7 +28,7 @@ $(function() {
 
 			all: function() {
 				// all Property FAQ services
-				console.log('all 1');
+				console.log('index');
 
 				var propfaq_search_view = new PropFAQ.Views.SearchView;
 
