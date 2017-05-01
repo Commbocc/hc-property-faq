@@ -59,8 +59,8 @@ define([
 		dows = _.map(milidays, function(d) {
 			date = new Date(d);
 			var options = { weekday: 'long' };
-			date_str = date.toLocaleDateString('en-US', options).toString();
-			return date_str.split(' ')[0]+'s';
+			date_str = date.toLocaleDateString('en-US', options);
+			return date_str.split(',')[0]+'s';
 		});
 
 		return dows.join(' & ');
@@ -77,7 +77,7 @@ define([
 		return _.map(milidays, function(d) {
 			date = new Date(d);
 			var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-			date_str = date.toLocaleDateString('en-US', options).toString();
+			date_str = date.toLocaleDateString('en-US', options);
 			if (is_holiday(date, is_recycling)) { date_str = "HOLIDAY - NO PICKUP: " + date_str; }
 			return date_str;
 		});
