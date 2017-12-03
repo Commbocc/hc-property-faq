@@ -3,28 +3,13 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import store from './store'
-import VueAnalytics from 'vue-analytics'
 
 Vue.config.productionTip = false
 
-Vue.use(VueAnalytics, {
-	id: 'UA-63036279-9',
-	linkers: ['hcflgov.net', 'hillsboroughcounty.org', 'commbocc.github.io'],
-	router
-})
-
-var appElem = document.getElementById('app')
-
 /* eslint-disable no-new */
 new Vue({
-	el: '#app',
-	router,
-	store,
-	template: '<App/>',
-	components: { App },
-	beforeMount () {
-		var qid = appElem.getAttribute('data-selected-question') || window.selected_question || false
-		store.dispatch('setQuestion', qid)
-	}
+  el: '#app',
+  router,
+  template: '<App/>',
+  components: { App }
 })
