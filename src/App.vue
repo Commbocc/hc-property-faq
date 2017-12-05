@@ -1,23 +1,29 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+
+    <!-- <details><pre>{{ $store.state }}</pre></details> -->
+
+    <address-form></address-form>
+
+    <div is="HaulerResults"></div>
+
+    <alert v-for="(alert, index) in $store.state.alerts.active" :error="alert" :key="index"></alert>
+
+    <!-- <router-view></router-view> -->
+
   </div>
 </template>
 
 <script>
+import Alert from '@/components/Alert'
+import AddressForm from '@/components/AddressForm'
+import HaulerResults from '@/components/results/Hauler'
+
 export default {
-  name: 'app'
+  components: {
+    Alert,
+    AddressForm,
+    HaulerResults
+  }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
