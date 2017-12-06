@@ -1,24 +1,31 @@
 import * as esriLoader from 'esri-loader'
 import Parcel from '@/store/models/parcel'
 
+// const esriGeocoderUrl = 'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer'
+const esriGeocoderUrl = 'https://maps.hillsboroughcounty.org/arcgis/rest/services/Geocoding/DBO_composite_address_locator/GeocodeServer'
+const esriWkid = 102100
+
 // vuex module
 export default {
   state: {
+    searching: false,
     location: null,
-    folio: null,
     parcel: null
   },
   actions: {
+    findAddressAndParcel ({dispatch}, input) {
+      return dispatch('findAddress', input).then(() => {
+        return dispatch('fetchParcel')
+      })
+    },
     findAddress ({commit}, input) {
-      commit('clearAlerts')
       return esriLoader.loadModules([
         'esri/tasks/Locator'
       ])
       .then(([Locator]) => {
         var hcLocator = new Locator({
-          // url: 'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer',
-          url: 'https://maps.hillsboroughcounty.org/arcgis/rest/services/Geocoding/DBO_composite_address_locator/GeocodeServer',
-          outSpatialReference: {wkid: 102100}
+          url: esriGeocoderUrl,
+          outSpatialReference: {wkid: esriWkid}
         })
 
         return hcLocator.addressToLocations({
@@ -32,9 +39,6 @@ export default {
             throw new Error('That address was not found in our records.')
           }
         })
-      })
-      .catch(err => {
-        commit('addAlert', err)
       })
     },
     fetchParcel ({state, commit}) {
@@ -61,9 +65,6 @@ export default {
           }
         })
       })
-      .catch(err => {
-        commit('addAlert', err)
-      })
     }
   },
   mutations: {
@@ -72,6 +73,9 @@ export default {
     },
     setParcel (state, data) {
       state.parcel = data
+    },
+    setFormIsSearching (state, data) {
+      state.searching = data
     }
   }
 }

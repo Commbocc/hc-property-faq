@@ -17,7 +17,7 @@
         </span>
       </div>
 
-      <small v-if="false" class="form-text text-muted">
+      <small v-if="helpText" class="form-text text-muted">
         {{ helpText }}
       </small>
 
@@ -26,39 +26,35 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'address-form',
   data () {
     return {
-      input: '6106 olivedale',
-      loading: false,
+      input: '',
       placeholder: 'Your Street Address...',
-      helpText: 'help text'
+      helpText: null
     }
   },
   computed: {
+    ...mapState({
+      searching: state => state.address.searching
+    }),
     btnText () {
-      // return (this.loading) ? 'Loading' : 'Find'
+      // return (this.searching) ? 'Loading' : 'Find'
       return 'Find'
     },
     btnClass () {
-      return (this.loading) ? 'btn-warning' : 'btn-info'
+      return (this.searching) ? 'btn-warning' : 'btn-info'
     },
     btnIcon () {
-      return (this.loading) ? 'fa fa-fw fa-spinner fa-spin' : 'fa fa-fw fa-search'
+      return (this.searching) ? 'fa fa-fw fa-spinner fa-spin' : 'fa fa-fw fa-search'
     }
   },
   methods: {
-    ...mapActions([
-      'findHauler'
-    ]),
     search () {
-      this.loading = true
-      this.findHauler(this.input).then(() => {
-        this.loading = false
-      })
+      this.$emit('search', this.input)
     }
   }
 }

@@ -25,45 +25,38 @@ export default class Provider {
   }
 
   // getter methods
-  get nextGarbageDates () {
-    var days = stringToDaysOfWeek(this.garbageString)
-    return accountForHolidays(days)
+  get garbageDates () {
+    return accountForHolidays(this.garbageString)
   }
 
-  get nextRecycleDates () {
-    var days = stringToDaysOfWeek(this.recycleString)
-    return accountForHolidays(days, true)
+  get recycleDates () {
+    return accountForHolidays(this.recycleString, true)
   }
 
-  get nextYardDates () {
-    var days = stringToDaysOfWeek(this.yardWasteString)
-    return accountForHolidays(days)
+  get yardDates () {
+    return accountForHolidays(this.yardWasteString)
+  }
+
+  get garbageDays () {
+    return weekdaysInArr(this.garbageDates)
+  }
+
+  get recycleDays () {
+    return weekdaysInArr(this.recycleDates)
+  }
+
+  get yardDays () {
+    return weekdaysInArr(this.yardDates)
   }
 
   get details () {
+    // this is bad practice, consider adding these attributes to the Feature returned from the API
     return _.find(providerIndex, p => _.contains(p.ids, this.providerString))
   }
 }
 
-// var h = new Provider({
-//   'Address': '6106 OLIVEDALE DR',
-//   'City': 'RIVERVIEW',
-//   'District': '4',
-//   'Folio': 479340322,
-//   'Garbage': 'Monday-Thursday',
-//   'OBJECTID': 222272,
-//   'PA_ZIP': '33578',
-//   'Provider': 'WASTE MANAGEMENT',
-//   'Recycling': 'Monday',
-//   'State': 'FL',
-//   'YardWaste': 'Monday',
-//   'ZipCode': '33569',
-//   'folio2': '0479340322'
-// })
-// console.log(h)
-// console.log(h.nextGarbageDates)
-
-function accountForHolidays (momentArr, isRecycling = false) {
+function accountForHolidays (string, isRecycling = false) {
+  const momentArr = stringToDaysOfWeek(string)
   var addOns = []
 
   _.each(momentArr, (m, index) => {
@@ -92,7 +85,7 @@ function stringToDaysOfWeek (string) {
 
 function nextDayOfWeek (dowInt, startDate = false) {
   var date = (startDate) ? moment(startDate) : moment()
-  // var date = (startDate) ? moment(startDate) : moment('11/20/2017', 'MM/DD/YYY')
+  // var date = (startDate) ? moment(startDate) : moment('12/25/2014', 'MM/DD/YYY')
   if (date.isoWeekday() <= dowInt) {
     return date.isoWeekday(dowInt)
   } else {
@@ -100,35 +93,42 @@ function nextDayOfWeek (dowInt, startDate = false) {
   }
 }
 
-// console.log(isHoliday(moment('12/25/2017', 'MM/DD/YYY'))) => true
-export function isHoliday (testDate, isRecycling = false) {
-  var tempDate, dateD, dateM, dateW, dateWnum, dateStr1, dateStr2, dateStr3
-  testDate = moment(testDate.valueOf())
+function weekdaysInArr (momentArr) {
+  return _.chain(momentArr)
+  .sortBy(d => d.day())
+  .map(d => d.format('dddd') + 's')
+  .uniq(true).value().join(' & ')
+}
 
-  // new years, independence, christmas
-  dateD = testDate.date()
-  dateM = testDate.month() + 1
-  dateStr1 = [dateM, dateD].join('/')
-  if (dateStr1 === '1/1' && isRecycling) {
+// console.log(isHoliday(moment('05/29/2017', 'MM/DD/YYY'))) // => true
+export function isHoliday (testDate, isRecycling = false) {
+  testDate = moment(testDate.valueOf())
+  const dateD = testDate.date()
+  const dateM = testDate.month() + 1
+  const dateW = testDate.day()
+  const dateL = testDate.endOf('month').date()
+  var dateWnum, dateStr
+
+  // new years (except recycling), independence, christmas
+  dateStr = [dateM, dateD].join('/')
+  if (dateStr === '1/1' && isRecycling) {
     return false
   }
-  if (dateStr1 === '1/1' || dateStr1 === '7/4' || dateStr1 === '12/25') {
+  if (dateStr === '1/1' || dateStr === '7/4' || dateStr === '12/25') {
     return true
   }
 
   // labor, thanksgiving
-  dateW = testDate.day()
   dateWnum = Math.floor((dateD - 1) / 7) + 1
-  dateStr2 = [dateM, dateWnum, dateW].join('/')
-  if (dateStr2 === '9/1/1' || dateStr2 === '11/4/4') {
+  dateStr = [dateM, dateWnum, dateW].join('/')
+  if (dateStr === '9/1/1' || dateStr === '11/4/4') {
     return true
   }
 
   // memorial
-  tempDate = testDate.endOf('month')
-  dateWnum = Math.floor((tempDate.date() - dateD - 1) / 7) + 1
-  dateStr3 = [dateM, dateWnum, dateW].join('/')
-  if (dateStr3 === '5/1/1') {
+  dateWnum = Math.floor((dateL - dateD - 1) / 7) + 1
+  dateStr = [dateM, dateWnum, dateW].join('/')
+  if (dateStr === '5/1/1') {
     return true
   }
 
